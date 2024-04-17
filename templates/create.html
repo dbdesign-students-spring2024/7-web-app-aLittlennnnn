@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block container %}
-<h2>Create</h2>
-<p>Create a new record in the MongoDB database collection.</p>
+<h2>Just had a new course!</h2>
+<p>Create a rating and review for the course to help later students:</p>
 <form method="POST" action="{{ url_for('create_post') }}">
   <p>Your name: <input type="text" id="fname" name="fname" /><br /></p>
   <p>Which course? <input type="text" id="course_name" name="course_name" /><br /></p>
