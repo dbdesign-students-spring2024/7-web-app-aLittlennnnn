@@ -37,7 +37,7 @@ except ConnectionFailure as e:
     # catch any database errors
     # the ping command failed, so the connection is not available.
     print(" * MongoDB connection error:", e)  # debug
-    sentry_sdk.capture_exception(e)  # send the error to sentry.io. delete if not using
+    # sentry_sdk.capture_exception(e)  # send the error to sentry.io. delete if not using
     sys.exit(1)  # this is a catastrophic error, so no reason to continue to live
 
 
@@ -81,10 +81,17 @@ def create_post():
     Accepts the form submission data for a new document and saves the document to the database.
     """
     name = request.form["fname"]
+    restaurant_name = request.form["restaurant_name"]
+    overall_rating = request.form["overall_rating"]
     message = request.form["fmessage"]
 
     # create a new document with the data the user entered
-    doc = {"name": name, "message": message, "created_at": datetime.datetime.utcnow()}
+    doc = {
+        "name": name,
+        "restaurant_name": restaurant_name,
+        "overall_rating": overall_rating,
+        "message": message, 
+        "created_at": datetime.datetime.utcnow()}
     db.exampleapp.insert_one(doc)  # insert a new document
 
     return redirect(
@@ -117,11 +124,15 @@ def edit_post(mongoid):
     mongoid (str): The MongoDB ObjectId of the record to be edited.
     """
     name = request.form["fname"]
+    restaurant_name = request.form["restaurant_name"]
+    overall_rating = request.form["overall_rating"]
     message = request.form["fmessage"]
 
     doc = {
         # "_id": ObjectId(mongoid),
         "name": name,
+        "restaurant_name": restaurant_name,
+        "overall_rating": overall_rating,
         "message": message,
         "created_at": datetime.datetime.utcnow(),
     }
