@@ -10,6 +10,17 @@
         <p class="post">
             Posted by {{doc.name}} at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
             <br/>
+            <br>
+            Course Name: {{ doc.course_name }}
+            <br>
+            Given by: {{ doc.professor_name }}
+            <br>
+            For School: {{ doc.major }}
+            <br>
+            As a: {{ doc.course_type}}
+            <br>
+            Overall rating: {{ doc.course_rating }}
+            <br>
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             <br/>
         </p>

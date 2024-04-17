@@ -81,16 +81,22 @@ def create_post():
     Accepts the form submission data for a new document and saves the document to the database.
     """
     name = request.form["fname"]
-    restaurant_name = request.form["restaurant_name"]
-    overall_rating = request.form["overall_rating"]
-    message = request.form["fmessage"]
+    course_name = request.form["course_name"]
+    major = request.form["major"]
+    course_type = request.form["course_type"]
+    professor_name = request.form["professor_name"]
+    course_rating = request.form["course_rating"]
+    comment = request.form["fmessage"]
 
     # create a new document with the data the user entered
     doc = {
         "name": name,
-        "restaurant_name": restaurant_name,
-        "overall_rating": overall_rating,
-        "message": message, 
+        "course_name": course_name,
+        "major": major,
+        "course_type": course_type,
+        "professor_name": professor_name,
+        "course_rating": course_rating,
+        "comment": comment, 
         "created_at": datetime.datetime.utcnow()}
     db.exampleapp.insert_one(doc)  # insert a new document
 
@@ -124,16 +130,22 @@ def edit_post(mongoid):
     mongoid (str): The MongoDB ObjectId of the record to be edited.
     """
     name = request.form["fname"]
-    restaurant_name = request.form["restaurant_name"]
-    overall_rating = request.form["overall_rating"]
-    message = request.form["fmessage"]
+    course_name = request.form["course_name"]
+    course_type = request.form["course_type"]
+    major = request.form["major"]
+    professor_name = request.form["professor_name"]
+    course_rating = request.form["course_rating"]
+    comment = request.form["fmessage"]
 
     doc = {
         # "_id": ObjectId(mongoid),
         "name": name,
-        "restaurant_name": restaurant_name,
-        "overall_rating": overall_rating,
-        "message": message,
+        "course_name": course_name,
+        "major": major,
+        "course_type": course_type,
+        "professor_name": professor_name,
+        "course_rating": course_rating,
+        "comment": comment,
         "created_at": datetime.datetime.utcnow(),
     }
 

@@ -1,15 +1,42 @@
 {% extends 'base.html' %} {% block container %}
 <h2>Update</h2>
-<p>Edit a record in the MongoDB database collection.</p>
+<p>Edit a previous rating.</p>
 <form method="POST" action="{{ url_for('edit_post', mongoid=mongoid) }}">
   <p>
     Your name:
     <input type="text" id="fname" name="fname" value="{{doc.name}}" /><br />
   </p>
+  <p>Which course? <input type="text" id="course_name" name="course_name" value="{{doc.course_name}}" /><br /></p>
+  <p>Given by? <input type="text" id="professor_name" name="professor_name" value="{{doc.professor_name}}"/><br /></p>
+  <p>For which school?: 
+    <select id="major" name="major">
+      <option value="CAS" {% if doc.major == 'CAS' %}selected{% endif %}>College of Arts and Science</option>
+      <option value="Dental" {% if doc.major == 'Dental' %}selected{% endif %}>College of Dentistry</option>
+      <option value="Gallatin" {% if doc.major == 'Gallatin' %}selected{% endif %}>Gallatin School of Individualized Study</option>
+      <option value="Stern" {% if doc.major == 'Stern' %}selected{% endif %}>Leonard N. Stern School of Business</option>
+      <option value="LS" {% if doc.major == 'LS' %}selected{% endif %}>Liberal Studies</option>
+      <option value="Abu" {% if doc.major == 'Abu' %}selected{% endif %}>NYU Abu Dhabi</option>
+      <option value="SH" {% if doc.major == 'SH' %}selected{% endif %}>NYU Shanghai</option>
+      <option value="OP" {% if doc.major == 'OP' %}selected{% endif %}>Opportunity Programs</option>
+      <option value="Steinhardt" {% if doc.major == 'Steinhardt' %}selected{% endif %}>Steinhardt School of Culture, Education, and Human Development</option>
+      <option value="Tandon" {% if doc.major == 'Tandon' %}selected{% endif %}>Tandon School of Engineering</option>
+      <option value="Tisch" {% if doc.major == 'Tisch' %}selected{% endif %}>Tisch School of the Arts</option>
+      <option value="Others" {% if doc.major == 'Others' %}selected{% endif %}>Others</option>
+    </select>
+  </p>
+  <p>Type of course: 
+    <select id="course_type" name="course_type">
+      <option value="core" {% if doc.major == 'core' %}selected{% endif %}>Core Curriculum</option>
+      <option value="major_core" {% if doc.major == 'major_core' %}selected{% endif %}>Major Core</option>
+      <option value="Elective" {% if doc.major == 'Elective' %}selected{% endif %}>Electives</option>
+    </select>
+  </p>
+  <p>Overall Rating (0-5): <input type="number" id="course_rating" name="course_rating" value="{{doc.course_rating}}"/><br /></p>
   <p>
-    Message:
+   Comment:
     <textarea id="fmessage" name="fmessage">{{doc.message}}</textarea>
   </p>
+  
   <p>
     <a href="{{ url_for('read')}}">Cancel</a>
     <input type="submit" name="post-btn" value="Save" />
