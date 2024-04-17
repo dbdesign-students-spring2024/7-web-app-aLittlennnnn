@@ -7,12 +7,6 @@ import datetime
 
 from flask import Flask, render_template, request, redirect, url_for, make_response
 
-# import logging
-import sentry_sdk
-from sentry_sdk.integrations.flask import (
-    FlaskIntegration,
-)  # delete this if not using sentry.io
-
 # from markupsafe import escape
 import pymongo
 from pymongo.errors import ConnectionFailure
@@ -28,22 +22,21 @@ load_dotenv(override=True)  # take environment variables from .env.
 # delete this if not using sentry.io
 sentry_sdk.init(
     dsn=os.getenv("SENTRY_DSN"),
-    # enable_tracing=True,
+    enable_tracing=True,
     # Set traces_sample_rate to 1.0 to capture 100% of transactions for performance monitoring.
     traces_sample_rate=1.0,
     # Set profiles_sample_rate to 1.0 to profile 100% of sampled transactions.
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
     integrations=[FlaskIntegration()],
-    traces_sample_rate=1.0,
+    # traces_sample_rate=1.0,
     send_default_pii=True,
 )
 
-# instantiate the app using sentry for debugging
 app = Flask(__name__)
 
-# # turn on debugging if in development mode
-# app.debug = True if os.getenv("FLASK_ENV", "development") == "development" else False
+# turn on debugging if in development mode
+app.debug = True if os.getenv("FLASK_ENV", "development") == "development" else False
 
 # try to connect to the database, and quit if it doesn't work
 try:
